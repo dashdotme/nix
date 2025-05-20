@@ -27,12 +27,12 @@
   };
 
   # Optimize I/O performance
-  boot.kernelParams = [ 
+  boot.kernelParams = [
     "nvidia-drm.modeset=1"
     "processor.max_cstate=1"
     "intel_idle.max_cstate=1"
   ];
-  
+
   # Optimize VM parameters
   boot.kernel.sysctl = {
     "vm.swappiness" = 10;
@@ -77,8 +77,8 @@
   # explicit includes to get bluetooth registering
   boot.kernelModules = [ "btintel" "btusb" ];
 
-  hardware.firmware = with pkgs; [ 
-    linux-firmware 
+  hardware.firmware = with pkgs; [
+    linux-firmware
   ];
   services.dbus.enable = true;
   services.blueman.enable = true;
@@ -98,21 +98,33 @@
     useXkbConfig = true; # use xkb.options in tty.
   };
 
-  # UI/Display Manager 
+  # UI/Display Manager
   services.xserver = {
     enable = true;
     displayManager.gdm = {
-      enable = true;
+      enable = false;
       wayland = true;
+    };
+    displayManager.sddm = {
+      enable = true;
+      wayland.enable = true;
     };
     desktopManager.gnome.enable = true;
     layout = "us";
-    xkbVariant = ""; 
+    xkbVariant = "";
     excludePackages = with pkgs; [ xterm ];
   };
 
-  programs.hyprland.enable = true;
+  programs.hyprland = {
+    enable = true;
+    xwayland.enable = true;
+  };
+
+  hardware.opengl.enable = true;
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
+
+  xdg.portal.enable = true;
+  xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
 
   programs.neovim = {
     enable = true;
@@ -134,6 +146,23 @@
     btop
     sysstat
     smartmontools
+    vlc
+
+    # hyprland
+    waybar # menu bar
+    dunst # notifications
+    libnotify # dunst dependency
+
+    swww # wallpaper
+
+    rofi-wayland # app launcher
+    # wofi
+    # bemenu
+    # fuzzel
+    # tofi
+
+    # move later
+    wl-clipboard
   ];
 
   # Configure keymap in X11
@@ -148,7 +177,10 @@
   # OR
   services.pipewire = {
     enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
     pulse.enable = true;
+    jack.enable = true;
   };
 
   # Enable touchpad support (enabled default in most desktopManager).
@@ -169,7 +201,7 @@
   virtualisation.docker = {
     enable = true;
     enableOnBoot = true;
-  }; 
+  };
   # programs.firefox.enable = true;
 
   # List packages installed in system profile. To search, run:

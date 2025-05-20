@@ -14,12 +14,13 @@
       system = "x86_64-linux";
       modules = [
         ./configuration.nix
-	./mounts.nix
-        
+        ./mounts.nix
+
         home-manager.nixosModules.home-manager
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
+          home-manager.backupFileExtension = "backup";
           home-manager.users.dash = import ./home.nix;
         }
       ];

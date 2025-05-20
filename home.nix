@@ -4,7 +4,7 @@
   home.username = "dash";
   home.homeDirectory = "/home/dash";
   home.stateVersion = "24.11";
-  
+
   # Your home-manager configurations go here
   home.packages = with pkgs; [
     curl
@@ -41,7 +41,7 @@
     git
     gh # github
     direnv
-    
+
     fnm
     nodejs_20
     deno
@@ -49,12 +49,14 @@
 
     uv
     python3
-    
+
     rustup
     cargo-expand
     cargo-watch
     cargo-edit
     cargo-audit
+
+    gcc
 
     shellcheck
     shfmt
@@ -63,6 +65,7 @@
     fd
     jq
     yq
+    chezmoi
 
     docker-compose
     kubectl
@@ -96,7 +99,7 @@
     };
     recursive = true;
   };
-  
+
   # Add custom theme for oh-my-zsh
   home.file.".oh-my-zsh/custom/themes/frisk2.zsh-theme".text = ''
     PROMPT=$'
@@ -110,14 +113,14 @@
     ZSH_THEME_GIT_PROMPT_DIRTY=" %{$fg[red]%}*%{$fg[green]%}"
     ZSH_THEME_GIT_PROMPT_CLEAN=""
   '';
-  
+
   # ZSH configuration
   programs.zsh = {
     enable = true;
     enableAutosuggestions = true;
     enableCompletion = true;
     syntaxHighlighting.enable = true;
-    
+
     # oh-my-zsh configuration
     oh-my-zsh = {
       enable = true;
@@ -130,16 +133,16 @@
         "colored-man-pages"
       ];
     };
-    
+
     shellAliases = {
       python = "python3";
     };
-    
+
     # Custom init script with ZSH variable at the top
     initExtra = ''
       # Set ZSH variable first
       export ZSH="$HOME/.oh-my-zsh"
-      
+
       # Detect OS type
       case "$(uname -s)" in
         Darwin*)
@@ -152,9 +155,9 @@
           OS_TYPE="unknown"
           ;;
       esac
-      
+
       export FZF_BASE=~/.fzf
-      
+
       # Z-jump functionality
       if [ "$OS_TYPE" = "linux" ]; then
         # Linux-specific settings for z-jump
@@ -162,14 +165,14 @@
           source ${pkgs.z-lua}/share/z.lua
         fi
       fi
-      
+
       # Editor preference
       if [[ -n $SSH_CONNECTION ]]; then
         export EDITOR='vim'
       else
         export EDITOR='nvim'
       fi
-      
+
       # Java setup - OS specific
       if [ "$OS_TYPE" = "linux" ]; then
         # Linux Java configuration
@@ -183,23 +186,23 @@
         done
         unsetopt NULL_GLOB 2>/dev/null || true
       fi
-      
+
       # Terraform completion
       if command -v terraform &>/dev/null; then
         autoload -U +X bashcompinit && bashcompinit
         complete -o nospace -C $(which terraform) terraform
       fi
-      
+
       # uv completion - if installed
       if command -v uv &>/dev/null; then
         eval "$(uv generate-shell-completion zsh 2>/dev/null || true)"
       fi
-      
+
       # Environment file - check if exists before sourcing
       if [ -f "$HOME/.local/bin/env" ]; then
         . "$HOME/.local/bin/env"
       fi
-      
+
       # fnm (Fast Node Manager) setup
       FNM_PATH="$HOME/.local/share/fnm"
       if [ -d "$FNM_PATH" ]; then
@@ -207,30 +210,30 @@
         command -v fnm &>/dev/null && eval "$(fnm env 2>/dev/null || true)"
         command -v fnm &>/dev/null && eval "$(fnm env --use-on-cd --shell zsh 2>/dev/null || true)"
       fi
-      
+
       # GitHub username
       export GITHUB_USERNAME=dashdotme
-      
+
       # Custom functions
       fcd() {
         local dir
         dir=$(find ''${1:-.} -type d 2> /dev/null | fzf +m) && cd "$dir"
       }
-      
+
       if [ -f "${pkgs.zsh-autosuggestions}/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ]; then
         source ${pkgs.zsh-autosuggestions}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
       fi
-      
+
       if [ -f "${pkgs.zsh-syntax-highlighting}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]; then
         source ${pkgs.zsh-syntax-highlighting}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
       fi
-      
+
       if [ -d "${pkgs.zsh-completions}/share/zsh-completions" ]; then
         fpath=(${pkgs.zsh-completions}/share/zsh-completions $fpath)
       fi
     '';
   };
-  
+
   # Program configurations
   programs.neovim = {
     enable = true;
@@ -238,7 +241,7 @@
     viAlias = true;
     vimAlias = true;
   };
-  
+
   # Let Home Manager manage itself
   programs.home-manager.enable = true;
 }
