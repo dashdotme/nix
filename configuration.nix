@@ -49,6 +49,9 @@
   };
 
   nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.permittedInsecurePackages = [
+    "electron-33.4.11"
+  ];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader = {
@@ -105,14 +108,14 @@
       enable = false;
       wayland = true;
     };
-    displayManager.sddm = {
-      enable = true;
-      wayland.enable = true;
-    };
     desktopManager.gnome.enable = true;
-    layout = "us";
-    xkbVariant = "";
+    xkb.layout = "us";
+    xkb.variant = "";
     excludePackages = with pkgs; [ xterm ];
+  };
+  services.displayManager.sddm = {
+    wayland.enable = true;
+    enable = true;
   };
 
   programs.hyprland = {
@@ -120,7 +123,7 @@
     xwayland.enable = true;
   };
 
-  hardware.opengl.enable = true;
+  hardware.graphics.enable = true;
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
   xdg.portal.enable = true;
@@ -147,8 +150,10 @@
     sysstat
     smartmontools
     vlc
+    bitwarden-desktop
 
     # hyprland
+    hyprlock
     waybar # menu bar
     dunst # notifications
     libnotify # dunst dependency
@@ -161,7 +166,7 @@
     # fuzzel
     # tofi
 
-    # move later
+    # wayland clipboard
     wl-clipboard
   ];
 
