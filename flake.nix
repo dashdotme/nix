@@ -1,6 +1,5 @@
 {
   description = "NixOS configuration with Home Manager";
-
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
     home-manager = {
@@ -8,14 +7,20 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
-
-  outputs = { self, nixpkgs, home-manager, ... }: {
+  outputs = { nixpkgs, home-manager, ... }: {
     nixosConfigurations.dash_nixos = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
         ./configuration.nix
         ./mounts.nix
-
+        # custom packages
+        {
+          nixpkgs.overlays = [
+            (final: prev: {
+              mojo = prev.callPackage ./packages/mojo.nix {};
+            })
+          ];
+        }
         home-manager.nixosModules.home-manager
         {
           home-manager.useGlobalPkgs = true;

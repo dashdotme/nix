@@ -157,14 +157,20 @@
     vlc
     bitwarden-desktop
 
+    unzip
+    wget
+    curl
+    gnutar
+    gzip
+    networkmanagerapplet
+
     # hyprland
     hyprlock
     waybar # menu bar
     dunst # notifications
     libnotify # dunst dependency
-
+    yazi # tui file manager
     swww # wallpaper
-
     rofi-wayland # app launcher
     # wofi
     # bemenu
@@ -173,7 +179,12 @@
 
     # wayland clipboard
     wl-clipboard
+    pciutils
   ];
+
+  environment.shellAliases = {
+      rebuild = "sudo nixos-rebuild switch --flake /etc/nixos#dash_nixos";
+  };
 
   # Configure keymap in X11
   # services.xserver.xkb.layout = "us";
@@ -195,7 +206,6 @@
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.libinput.enable = true;
-
   programs.zsh.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.

@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   home.username = "dash";
@@ -26,6 +26,48 @@
     websocat
     dolphin
 
+    # lsps - following Helix
+    nixd
+    (lowPrio rust-analyzer)
+    angular-language-server
+    ansible-language-server
+    bash-language-server
+    clang-tools # clangd - c, c++
+    omnisharp-roslyn # OmniSharp, c#
+    elixir-ls
+    gopls
+    golangci-lint-langserver
+    haskellPackages.haskell-language-server
+    terraform-ls
+    helm-ls
+    hyprls
+    vscode-langservers-extracted # html, css, json, eslint
+    typescript-language-server # js/ts... it's in go now
+    jq-lsp
+    lua-language-server
+    marksman
+    markdown-oxide
+    mojo
+    python312Packages.python-lsp-server
+    ruff
+    svelte-language-server
+    vue-language-server
+    yaml-language-server
+    zls
+
+    # formatters
+    nixpkgs-fmt
+    nodePackages.prettier
+    nodePackages.eslint
+    csharpier
+    shfmt
+    yamlfmt
+    taplo
+    sqlfluff
+
+    postgresql_17
+
+    wofi
     uutils-coreutils-noprefix # swap gnu coreutils for uutils aliases
 
     # proxy/tunnel
