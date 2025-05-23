@@ -50,10 +50,11 @@
     options = "--delete-older-than 30d";
   };
 
-  nixpkgs.config.allowUnfree = true;
-  nixpkgs.config.permittedInsecurePackages = [
-    "electron-33.4.11"
-  ];
+  nixpkgs.config = {
+    allowUnfree = true;
+    permittedInsecurePackages = ["electron-33.4.11"];
+    allowUnsupportedSystem = true;
+  };
 
   # Use the systemd-boot EFI boot loader.
   boot.loader = {
@@ -196,6 +197,7 @@
   # Enable sound.
   # hardware.pulseaudio.enable = true;
   # OR
+  security.rtkit.enable = true; # scheduling priority service
   services.pipewire = {
     enable = true;
     alsa.enable = true;

@@ -148,8 +148,9 @@
     tokei # count code tokens
     presenterm # markdown -> slideshow
 
-    # teams-for-linux
+    # teams-for-linux # not functional
     vscode
+    obs-studio
   ];
 
   home.file.".zshrc".enable = false;
