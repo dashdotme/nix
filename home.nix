@@ -51,12 +51,19 @@
     uv
     python3
 
+    ruby.withPackages (ps: with ps; [
+      bundler
+      rails
+      sass
+    ])
+
     rustup
     cargo-expand
     cargo-watch
     cargo-edit
     cargo-audit
 
+    clang
     gcc
 
     shellcheck
