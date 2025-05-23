@@ -5,6 +5,8 @@
   home.homeDirectory = "/home/dash";
   home.stateVersion = "24.11";
 
+  programs.nix-index.enable = true; # show the package when a command isn't found
+
   # Your home-manager configurations go here
   home.packages = with pkgs; [
     curl
@@ -23,6 +25,8 @@
     tailscale # best thing
     websocat
     dolphin
+
+    uutils-coreutils-noprefix # swap gnu coreutils for uutils aliases
 
     # proxy/tunnel
     proxychains
@@ -51,28 +55,30 @@
     uv
     python3
 
-    ruby.withPackages (ps: with ps; [
-      bundler
-      rails
-      sass
-    ])
+    ruby
 
     rustup
     cargo-expand
     cargo-watch
     cargo-edit
     cargo-audit
+    cargo-info
+    rusty-man
 
-    clang
     gcc
 
     shellcheck
     shfmt
     fzf
     ripgrep
+    ripgrep-all
+    bat
+    eza # better ls
     fd
     jq
     yq
+    gitui
+    dua
     chezmoi
 
     docker-compose
@@ -94,6 +100,11 @@
 
     fzf
     z-lua
+
+    just
+    mprocs
+    tokei # count code tokens
+    presenterm # markdown -> slideshow
 
     # teams-for-linux
     vscode

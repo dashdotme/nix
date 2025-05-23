@@ -22,7 +22,9 @@
   hardware.nvidia = {
     package = config.boot.kernelPackages.nvidiaPackages.stable;
     modesetting.enable = true;
-    powerManagement.enable = true;
+    powerManagement.enable = false;
+    powerManagement.finegrained = false;
+    nvidiaSettings = true;
     open = false;  # Use the proprietary drivers, not the open source ones
   };
 
@@ -123,7 +125,10 @@
     xwayland.enable = true;
   };
 
-  hardware.graphics.enable = true;
+  hardware.graphics = {
+    enable = true;
+  };
+
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
   xdg.portal.enable = true;
