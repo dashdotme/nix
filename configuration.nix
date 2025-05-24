@@ -223,6 +223,9 @@
     jack.enable = true;
   };
 
+  services.udisks2.enable = true;
+  services.gvfs.enable = true;
+
   # Enable touchpad support (enabled default in most desktopManager).
   # services.libinput.enable = true;
   programs.zsh.enable = true;
@@ -230,7 +233,7 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.dash = {
      isNormalUser = true;
-     extraGroups = [ "wheel" "networkmanager" "audio" "bluetooth" "docker" ]; # Enable ‘sudo’ for the user.
+     extraGroups = [ "wheel" "networkmanager" "audio" "bluetooth" "docker" "storage"]; # Enable ‘sudo’ for the user.
      shell = pkgs.zsh;
      packages = with pkgs; [
        tree
