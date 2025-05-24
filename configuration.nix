@@ -148,6 +148,7 @@
     wget
     bluez
     bluez-tools
+    usbutils
     # microsoft-edge # this being removed is some terrorist action
     google-chrome
     python3
