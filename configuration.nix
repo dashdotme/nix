@@ -111,7 +111,7 @@
       enable = false;
       wayland = true;
     };
-    desktopManager.gnome.enable = true;
+    desktopManager.gnome.enable = false;
     xkb.layout = "us";
     xkb.variant = "";
     excludePackages = with pkgs; [ xterm ];
@@ -149,6 +149,7 @@
     bluez
     bluez-tools
     usbutils
+    udiskie
     # microsoft-edge # this being removed is some terrorist action
     google-chrome
     python3
