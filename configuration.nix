@@ -175,16 +175,17 @@
     yazi # tui file manager
     swww # wallpaper
     rofi-wayland # app launcher
-    # wofi
-    # bemenu
-    # fuzzel
-    # tofi
+    # hyprpolkitagent # auth daemon
+    lxqt.lxqt-policykit
 
     wl-clipboard # wl-copy & wl-paste
     clipse # wl-clipboard - persist text/images, tui
     grim # screenshot
     slurp # select area (for screens)
     pciutils
+
+    # compat
+    # qt6.qtwayland
 
     # waybar deps
     pavucontrol
