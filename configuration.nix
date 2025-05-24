@@ -148,7 +148,8 @@
     wget
     bluez
     bluez-tools
-    microsoft-edge
+    # microsoft-edge # this being removed is some terrorist action
+    google-chrome
     python3
     iotop
     htop
@@ -196,7 +197,7 @@
   fonts.packages = with pkgs; [
     lexend
     font-awesome
-    (nerdfonts.override { fonts = [ "JetBrainsMono"]; })
+    nerd-fonts.jetbrains-mono
   ];
 
   environment.shellAliases = {

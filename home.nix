@@ -23,7 +23,7 @@
     sshfs
     tailscale # best thing
     websocat
-    dolphin
+    # dolphin # tuis are better
 
     # lsps - following Helix
     nixd
