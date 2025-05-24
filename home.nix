@@ -7,7 +7,6 @@
 
   programs.nix-index.enable = true; # show the package when a command isn't found
 
-  # Your home-manager configurations go here
   home.packages = with pkgs; [
     curl
     wget

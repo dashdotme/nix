@@ -2,7 +2,7 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, lib, pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
   imports =
@@ -155,6 +155,8 @@
     btop
     sysstat
     smartmontools
+
+    spotify
     vlc
     bitwarden-desktop
 
@@ -178,9 +180,22 @@
     # fuzzel
     # tofi
 
-    # wayland clipboard
-    wl-clipboard
+    wl-clipboard # wl-copy & wl-paste
+    clipse # wl-clipboard - persist text/images, tui
+    grim # screenshot
+    slurp # select area (for screens)
     pciutils
+
+    # waybar deps
+    pavucontrol
+    wlogout
+    playerctl
+  ];
+
+  fonts.packages = with pkgs; [
+    lexend
+    font-awesome
+    (nerdfonts.override { fonts = [ "JetBrainsMono"]; })
   ];
 
   environment.shellAliases = {
@@ -224,14 +239,8 @@
     enable = true;
     enableOnBoot = true;
   };
-  # programs.firefox.enable = true;
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  # environment.systemPackages = with pkgs; [
-  #   vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  #   wget
-  # ];
+  programs.firefox.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -247,8 +256,8 @@
   services.openssh.enable = true;
 
   # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
+  networking.firewall.allowedTCPPorts = [ 57621 ]; # spotify
+  networking.firewall.allowedUDPPorts = [ 5335 ]; # spotify
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
 
