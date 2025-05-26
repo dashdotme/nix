@@ -7,13 +7,15 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
-  outputs = { nixpkgs, home-manager, ... }: {
-    nixosConfigurations.dash_nixos = nixpkgs.lib.nixosSystem {
+
+  outputs = { nixpkgs, home-manager, ... }:
+  let
+    mkSystem = modules: nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
         ./configuration.nix
-        ./mounts.nix
-        # custom packages
+
+        # Custom packages
         {
           nixpkgs.overlays = [
             (final: prev: {
@@ -21,6 +23,7 @@
             })
           ];
         }
+
         home-manager.nixosModules.home-manager
         {
           home-manager.useGlobalPkgs = true;
@@ -28,6 +31,18 @@
           home-manager.backupFileExtension = "backup";
           home-manager.users.dash = import ./home.nix;
         }
+      ] ++ modules;
+    };
+  in
+  {
+    nixosConfigurations = {
+      dash_nixos = mkSystem [
+        ./mounts.nix
+      ];
+
+      xps = mkSystem [
+        ./hardware-xps.nix
+        ./mounts-xps.nix
       ];
     };
   };

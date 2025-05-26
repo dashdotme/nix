@@ -6,8 +6,7 @@
 
 {
   imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
+    [
     ];
 
   nix = {
@@ -202,10 +201,6 @@
     nerd-fonts.jetbrains-mono
   ];
 
-  environment.shellAliases = {
-      rebuild = "sudo nixos-rebuild switch --flake /etc/nixos#dash_nixos";
-  };
-
   # Configure keymap in X11
   # services.xserver.xkb.layout = "us";
   # services.xserver.xkb.options = "eurosign:e,caps:escape";
@@ -222,7 +217,6 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
-    jack.enable = true;
   };
 
   services.udisks2.enable = true;
@@ -243,6 +237,8 @@
        tree
      ];
   };
+
+  boot.supportedFilesystems = [ "ntfs" "vfat" "ext4" ];
 
   virtualisation.docker = {
     enable = true;
