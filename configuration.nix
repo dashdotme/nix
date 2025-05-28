@@ -118,6 +118,13 @@
   services.displayManager.sddm = {
     wayland.enable = true;
     enable = true;
+    package = pkgs.kdePackages.sddm;
+    theme = "sddm-astronaut-theme";
+    extraPackages = with pkgs.kdePackages; [
+      qtsvg
+      qtmultimedia
+      qtvirtualkeyboard
+    ];
   };
 
   programs.hyprland = {
@@ -177,8 +184,10 @@
     yazi # tui file manager
     swww # wallpaper
     rofi-wayland # app launcher
-    # hyprpolkitagent # auth daemon
-    lxqt.lxqt-policykit
+    hyprpolkitagent # auth daemon
+    # lxqt.lxqt-policykit # ugly auth daemon
+    sddm-astronaut
+    hypridle
 
     wl-clipboard # wl-copy & wl-paste
     clipse # wl-clipboard - persist text/images, tui
@@ -193,6 +202,7 @@
     pavucontrol
     wlogout
     playerctl
+    feh
   ];
 
   fonts.packages = with pkgs; [
