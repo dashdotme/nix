@@ -53,6 +53,9 @@
     allowUnfree = true;
     permittedInsecurePackages = ["electron-33.4.11"];
     allowUnsupportedSystem = true;
+    packageOverrides = pkgs: {
+      sddm-astronaut = pkgs.sddm-astronaut.override { embeddedTheme = "purple_leaves"; };
+    };
   };
 
   # Use the systemd-boot EFI boot loader.
@@ -115,15 +118,16 @@
     xkb.variant = "";
     excludePackages = with pkgs; [ xterm ];
   };
+
   services.displayManager.sddm = {
     wayland.enable = true;
     enable = true;
     package = pkgs.kdePackages.sddm;
     theme = "sddm-astronaut-theme";
-    extraPackages = with pkgs.kdePackages; [
-      qtsvg
-      qtmultimedia
-      qtvirtualkeyboard
+    extraPackages = with pkgs; [
+      kdePackages.qtsvg
+      kdePackages.qtmultimedia
+      kdePackages.qtvirtualkeyboard
     ];
   };
 
@@ -188,6 +192,7 @@
     hyprpolkitagent # auth daemon
     # lxqt.lxqt-policykit # ugly auth daemon
     sddm-astronaut
+
     hypridle
 
     wl-clipboard # wl-copy & wl-paste
