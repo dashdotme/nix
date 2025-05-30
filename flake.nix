@@ -36,7 +36,8 @@
   in
   {
     nixosConfigurations = {
-      dash_nixos = mkSystem [
+      home = mkSystem [
+        ./hardware-home.nix
         ./mounts.nix
       ];
 
