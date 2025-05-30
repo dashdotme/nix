@@ -161,8 +161,8 @@
       owner = "ohmyzsh";
       repo = "ohmyzsh";
       rev = "master";
-#       sha256 = "MfNt+psdgz9l0cw0X3HFHeenQz+6oV1EXnPL8T0ffGg=";
-      sha256 = "Xn9JC7ue/G3w/QpgH8tFZI5F8KlxKmue8Of9Sk6eujY=";
+      sha256 = "rjN+/5P/q7uXSVGf/jypOCYLvoGYGPMZTy1dL9+E4Uc=";
+      # sha256 = "Xn9JC7ue/G3w/QpgH8tFZI5F8KlxKmue8Of9Sk6eujY=";
       # sha256 = "MfNt+psdgz9l0cw0X3HFHeenQz+6oV1EXnPL8T0ffGg=";
     };
     recursive = true;
