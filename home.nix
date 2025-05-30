@@ -23,9 +23,8 @@
     sshfs
     tailscale # best thing
     websocat
-    # dolphin # tuis are better
 
-    # lsps - following Helix
+    # lsps
     nixd
     (lowPrio rust-analyzer)
     angular-language-server
@@ -41,7 +40,7 @@
     helm-ls
     hyprls
     vscode-langservers-extracted # html, css, json, eslint
-    typescript-language-server # js/ts... it's in go now
+    typescript-language-server
     jq-lsp
     lua-language-server
     marksman
@@ -147,7 +146,6 @@
     tokei # count code tokens
     presenterm # markdown -> slideshow
 
-    # teams-for-linux # not functional
     vscode
     obs-studio
   ];
@@ -162,26 +160,10 @@
       repo = "ohmyzsh";
       rev = "master";
       sha256 = "rjN+/5P/q7uXSVGf/jypOCYLvoGYGPMZTy1dL9+E4Uc=";
-      # sha256 = "Xn9JC7ue/G3w/QpgH8tFZI5F8KlxKmue8Of9Sk6eujY=";
-      # sha256 = "MfNt+psdgz9l0cw0X3HFHeenQz+6oV1EXnPL8T0ffGg=";
     };
     recursive = true;
   };
-  #
-  # # Add custom theme for oh-my-zsh
-  # home.file.".oh-my-zsh/custom/themes/frisk2.zsh-theme".text = ''
-  #   PROMPT=$'
-  #   %{$fg[blue]%}%/%{$reset_color%} $(git_prompt_info)$(bzr_prompt_info)%{$fg[white]%}[%n@%m]%{$reset_color%} %{$fg[white]%}[%T]%{$reset_color%} %(?:%{$fg[green]%}:%{$fg[red]%})[%?]%{$reset_color%}
-  #   %{$fg_bold[black]%}>%{$reset_color%} '
-  #   PROMPT2="%{$fg_bold[black]%}%_> %{$reset_color%}"
-  #   GIT_CB="git::"
-  #   ZSH_THEME_SCM_PROMPT_PREFIX="%{$fg[green]%}["
-  #   ZSH_THEME_GIT_PROMPT_PREFIX=$ZSH_THEME_SCM_PROMPT_PREFIX$GIT_CB
-  #   ZSH_THEME_GIT_PROMPT_SUFFIX="]%{$reset_color%} "
-  #   ZSH_THEME_GIT_PROMPT_DIRTY=" %{$fg[red]%}*%{$fg[green]%}"
-  #   ZSH_THEME_GIT_PROMPT_CLEAN=""
-  # '';
-  #
+
   # ZSH configuration
   programs.zsh = {
     enable = true;
