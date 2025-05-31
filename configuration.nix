@@ -76,6 +76,7 @@
   networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
 
   hardware.enableAllFirmware = true;
+  hardware.enableRedistributableFirmware = true;
   hardware.bluetooth = {
     enable = true;
     powerOnBoot = true;
@@ -83,7 +84,7 @@
   };
 
   # explicit includes to get bluetooth registering
-  boot.kernelModules = [ "btintel" "btusb" ];
+  boot.kernelModules = [ "btintel" "btusb" "snd_soc_sof_pci_intel_tgl"];
 
   hardware.firmware = with pkgs; [
     linux-firmware
@@ -206,6 +207,7 @@
 
     # waybar deps
     pavucontrol
+    pwvucontrol
     wlogout
     playerctl
     feh
@@ -233,6 +235,7 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
+    wireplumber.enable = true;
   };
 
   services.udisks2.enable = true;
