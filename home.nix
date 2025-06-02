@@ -8,6 +8,7 @@
   programs.nix-index.enable = true; # show the package when a command isn't found
 
   home.packages = with pkgs; [
+    # networking
     curl
     wget
     bind # dns : dig, nslookup
@@ -65,7 +66,6 @@
 
     postgresql_17
 
-    wofi
     uutils-coreutils-noprefix # swap gnu coreutils for uutils aliases
 
     # proxy/tunnel
@@ -89,13 +89,13 @@
 
     fnm
     nodejs_20
-    deno
-    bun
+    # deno
+    # bun
 
     uv
     python3
 
-    ruby
+    # ruby
 
     rustup
     cargo-expand
@@ -122,18 +122,18 @@
     chezmoi
 
     docker-compose
-    kubectl
-    kubectx
-    k9s
-    helm
+    # kubectl
+    # kubectx
+    # k9s
+    # helm
     terraform
     terraform-ls
-    ansible
+    # ansible
 
     azure-cli
     awscli2
 
-    cmake
+    # cmake
 
     htop
     btop
@@ -148,6 +148,9 @@
 
     vscode
     obs-studio
+
+    # laptop
+    brightnessctl
   ];
 
   home.file.".zshrc".enable = false;

@@ -83,6 +83,8 @@
     package = pkgs.bluez;
   };
 
+  powerManagement.powertop.enable = true;
+
   # explicit includes to get bluetooth registering
   boot.kernelModules = [ "btintel" "btusb" "snd_soc_sof_pci_intel_tgl"];
 
@@ -193,13 +195,14 @@
     hyprpolkitagent # auth daemon
     # lxqt.lxqt-policykit # ugly auth daemon
     sddm-astronaut
-
+    wofi
     hypridle
 
     wl-clipboard # wl-copy & wl-paste
     clipse # wl-clipboard - persist text/images, tui
     grim # screenshot
     slurp # select area (for screens)
+    satty # annotate screenshot
     pciutils
 
     # compat
