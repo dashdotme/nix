@@ -38,7 +38,7 @@
     nixosConfigurations = {
       home = mkSystem [
         ./hardware-home.nix
-        ./mounts.nix
+        ./mounts-home.nix
       ];
 
       xps = mkSystem [
