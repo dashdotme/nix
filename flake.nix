@@ -44,6 +44,7 @@
       xps = mkSystem [
         ./hardware-xps.nix
         ./mounts-xps.nix
+        ./xps-only.nix
       ];
     };
   };

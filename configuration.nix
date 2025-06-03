@@ -183,6 +183,7 @@
     gnutar
     gzip
     networkmanagerapplet
+    procs
 
     # hyprland
     hyprlock
