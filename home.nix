@@ -139,7 +139,6 @@
     btop
 
     fzf
-    z-lua
 
     just
     mprocs
@@ -148,6 +147,10 @@
 
     vscode
     obs-studio
+
+    # style
+    matugen
+    pywal
 
     # laptop
     brightnessctl
@@ -293,6 +296,12 @@
     defaultEditor = true;
     viAlias = true;
     vimAlias = true;
+  };
+
+  programs.zoxide = {
+      enable = true;
+      enableZshIntegration = true;
+      options = [ "--cmd cd" ];
   };
 
   # Let Home Manager manage itself
