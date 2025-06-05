@@ -5,7 +5,10 @@
   home.homeDirectory = "/home/dash";
   home.stateVersion = "24.11";
 
-  programs.nix-index.enable = true; # show the package when a command isn't found
+  programs.nix-index = {
+    enable = true; # show the package when a command isn't found
+    enableZshIntegration = true;
+  };
 
   home.packages = with pkgs; [
     curl
