@@ -25,4 +25,7 @@
       Environment=''"SYSTEMD_SLEEP_FREEZE_USER_SESSIONS=false"'';
     };
   };
+
+  networking.hostName = "home_desktop";
+
 }
