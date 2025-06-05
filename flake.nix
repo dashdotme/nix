@@ -35,16 +35,20 @@
     };
   in
   {
+
     nixosConfigurations = {
       home = mkSystem [
         ./hardware-home.nix
-        ./mounts.nix
+        ./mounts-home.nix
+        ./cfg-home-only.nix
       ];
 
       xps = mkSystem [
         ./hardware-xps.nix
         ./mounts-xps.nix
+        ./cfg-xps-only.nix
       ];
     };
   };
+
 }
