@@ -6,7 +6,7 @@
   hardware.nvidia = {
     package = config.boot.kernelPackages.nvidiaPackages.stable;
     modesetting.enable = true;
-    powerManagement.enable = false;
+    powerManagement.enable = true;
     powerManagement.finegrained = false;
     nvidiaSettings = true;
     open = false;
@@ -18,4 +18,11 @@
     "intel_idle.max_cstate=1"
   ];
 
+  systemd.services.systemd-suspend.environment.SYSTEMD_SLEEP_FREEZE_USER_SESSIONS = "false";
+
+  systemd.services."systemd-suspend" = {
+    serviceConfig = {
+      Environment=''"SYSTEMD_SLEEP_FREEZE_USER_SESSIONS=false"'';
+    };
+  };
 }
