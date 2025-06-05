@@ -10,4 +10,6 @@
 
   boot.kernelModules = [ "btintel" "btusb" "snd_soc_sof_pci_intel_tgl"];
 
+  systemd.services.systemd-suspend.environment.SYSTEMD_SLEEP_FREEZE_USER_SESSIONS = "false";
+
 }
