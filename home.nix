@@ -140,6 +140,7 @@
 
     htop
     btop
+    fastfetch
 
     fzf
 
