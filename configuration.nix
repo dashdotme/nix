@@ -131,6 +131,7 @@
   environment.systemPackages = with pkgs; [
     kitty
     ghostty
+    zellij
     vim
     wget
     bluez
