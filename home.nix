@@ -337,6 +337,24 @@
       options = [ "--cmd cd" ];
   };
 
+
+  # default to nvim on open call
+  xdg.mime.enable = true;
+  xdg.mimeApps.enable = true;
+  xdg.mimeApps.defaultApplications = {
+    "text/plain" = [ "nvim.desktop" ];
+  };
+
+
+  xdg.desktopEntries.nvim = {
+    name = "Neovim";
+    genericName = "Text Editor";
+    exec = "ghostty -e nvim %F";
+    terminal = false;
+    mimeType = [ "text/plain" "text/markdown" ];
+    categories = [ "Development" "TextEditor" ];
+  };
+
   # Let Home Manager manage itself
   programs.home-manager.enable = true;
 }
