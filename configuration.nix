@@ -35,7 +35,7 @@
     permittedInsecurePackages = ["electron-33.4.11"];
     allowUnsupportedSystem = true;
     packageOverrides = pkgs: {
-      sddm-astronaut = pkgs.sddm-astronaut.override { embeddedTheme = "purple_leaves"; };
+      sddm-astronaut = pkgs.sddm-astronaut.override { embeddedTheme = "japanese_aesthetic"; };
     };
   };
 
@@ -167,7 +167,6 @@
     swww # wallpaper
     rofi-wayland # app launcher
     hyprpolkitagent # auth daemon
-    # lxqt.lxqt-policykit # ugly auth daemon
     sddm-astronaut
     wofi
     hypridle
@@ -179,14 +178,16 @@
     satty # annotate screenshot
     pciutils
 
-    # compat
-    # qt6.qtwayland
-
     # waybar deps
     pwvucontrol
     wlogout
     playerctl
     feh
+
+    # shell file views
+    tree
+    eza # better ls; --tree for tree; -lar instead of -larp
+    lsd
   ];
 
   fonts.packages = with pkgs; [
@@ -213,6 +214,7 @@
 
   # touchpad support (enabled default in most desktopManager).
   services.libinput.enable = true;
+
   programs.zsh.enable = true;
 
   programs.nix-ld.enable = true; # use dynamically linked binaries
@@ -221,9 +223,6 @@
      isNormalUser = true;
      extraGroups = [ "wheel" "networkmanager" "audio" "bluetooth" "docker" "storage"]; # Enable ‘sudo’ for the user.
      shell = pkgs.zsh;
-     packages = with pkgs; [
-       tree
-     ];
   };
 
   boot.supportedFilesystems = [ "ntfs" "vfat" "ext4" ];
