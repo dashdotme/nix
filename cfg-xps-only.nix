@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
 
@@ -9,7 +9,23 @@
     "intel_idle.max_cstate=1"
   ];
 
-  boot.kernelModules = [ "btintel" "btusb" "snd_soc_sof_pci_intel_tgl"];
+  boot.kernelModules = [ "btintel" "btusb" ];
+
+  # something is muting speakers at startup
+  boot.extraModprobeConfig = ''
+    options snd-hda-intel model=dell-headset-multi
+  '';
+
+  systemd.user.services.unmute-audio = {
+    description = "Ensure audio is unmuted";
+    wantedBy = [ "default.target" ];
+    after = [ "pipewire.service" "pipewire-pulse.service" ];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+      ExecStart = "${pkgs.bash}/bin/bash -c 'sleep 2; for i in {1..5}; do ${pkgs.alsa-utils}/bin/amixer -c 0 set Master unmute && ${pkgs.alsa-utils}/bin/amixer -c 0 set Speaker unmute; sleep 10; done'";
+    };
+  };
 
   systemd.services.systemd-suspend.environment.SYSTEMD_SLEEP_FREEZE_USER_SESSIONS = "false";
 

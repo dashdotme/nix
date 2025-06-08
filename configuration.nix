@@ -183,12 +183,10 @@
     # qt6.qtwayland
 
     # waybar deps
-    pavucontrol
     pwvucontrol
     wlogout
     playerctl
     feh
-
   ];
 
   fonts.packages = with pkgs; [
