@@ -22,15 +22,13 @@
 
   system.primaryUser = "dashvallance";
 
-  # List packages installed in system profile. To search by name, run:
-  # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
+    # basics
     neovim
     jq
     yq
     tmux
     lftp
-
     fd
     ripgrep
     tree
@@ -40,16 +38,19 @@
     htop
     btop
     fastfetch
-
-    dos2unix
     colordiff
-
+    dos2unix
     curl
     gnugrep
     rsync
     wget
     parallel
     syncthing
+    fnm
+    chezmoi
+
+    # nix
+    direnv
 
     # network
     bandwhich
@@ -107,6 +108,7 @@
     };
 
     brews = [
+
       "azcopy"
       "azure-cli"
       "azure-functions-core-tools@4"
@@ -120,7 +122,7 @@
       "powershell"
 
       "duti" # CLI - fix file associations
-      "smartmontools" # Hardware monitoring
+      "smartmontools" # hardware monitoring
 
       "postgresql@14"
       "postgresql@15"
@@ -134,9 +136,8 @@
 
       "clamav"
 
-      "fnm"
-      "chezmoi"
       "podman"
+
     ];
 
     casks = [
@@ -159,6 +160,6 @@
   system.configurationRevision = self.rev or self.dirtyRev or null;
 
   # Used for backwards compatibility, please read the changelog before changing.
-  # $ darwin-rebuild changelog
+  # $ darwin-rebuild changelog -- flake /etc/nix-darwin#macbook
   system.stateVersion = 6;
 }
