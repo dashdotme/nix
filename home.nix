@@ -61,7 +61,6 @@
     nixd
     (lowPrio rust-analyzer)
     angular-language-server
-    ansible-language-server
     bash-language-server
     clang-tools # clangd - c, c++
     omnisharp-roslyn # OmniSharp, c#
@@ -160,12 +159,9 @@
     # helm
     terraform
     terraform-ls
-    # ansible
 
     azure-cli
     awscli2
-
-    # cmake
 
     htop
     btop

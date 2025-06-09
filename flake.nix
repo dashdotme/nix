@@ -1,16 +1,21 @@
 {
-  description = "NixOS configuration with Home Manager";
+  description = "My NixOS/MacOS configuration using home manager";
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+    nixpkgs-linux.url = "github:NixOS/nixpkgs/nixos-25.05";
+    nixpkgs-macos.url = "github:NixOS/nixpkgs/nixpkgs-25.05-darwin";
+    nix-darwin = {
+      url = "github:nix-darwin/nix-darwin/nix-darwin-25.05";
+      inputs.nixpkgs.follows = "nixpkgs-macos";
+    };
     home-manager = {
       url = "github:nix-community/home-manager/release-25.05";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-linux";
     };
   };
 
-  outputs = { nixpkgs, home-manager, ... }:
+  outputs = { nixpkgs-linux, nixpkgs-macos, nix-darwin, home-manager, self, ... }:
   let
-    mkSystem = modules: nixpkgs.lib.nixosSystem {
+    mkNixosSystem = modules: nixpkgs-linux.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
         ./configuration.nix
@@ -33,20 +38,42 @@
         }
       ] ++ modules;
     };
+
+    mkDarwinSystem = modules: nix-darwin.lib.darwinSystem {
+      system = "aarch64-darwin";
+      specialArgs = { inherit self; };  # Make self available to all modules
+      modules = [
+        ./configuration-darwin.nix
+        # home-manager.darwinModules.home-manager
+        # {
+        #   home-manager.useGlobalPkgs = true;
+        #   home-manager.useUserPackages = true;
+        #   home-manager.backupFileExtension = "backup";
+        #   home-manager.users.dash = import ./home-darwin.nix;
+        # }
+      ] ++ modules;
+    };
   in
   {
 
     nixosConfigurations = {
-      home = mkSystem [
+      home = mkNixosSystem [
         ./hardware-home.nix
         ./mounts-home.nix
         ./cfg-home-only.nix
       ];
 
-      xps = mkSystem [
+      xps = mkNixosSystem [
         ./hardware-xps.nix
         ./mounts-xps.nix
         ./cfg-xps-only.nix
+      ];
+    };
+
+    darwinConfigurations = {
+      macbook = mkDarwinSystem [
+        # todo
+        # ./cfg-macbook.nix
       ];
     };
   };
