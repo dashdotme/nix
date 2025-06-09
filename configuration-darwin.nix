@@ -2,22 +2,22 @@
 {
 
   nix = {
-      package = pkgs.nixVersions.latest;
-      extraOptions = ''
-        experimental-features = nix-command flakes
-      '';
-      optimise.automatic = true;
-      gc = {
-        automatic = true;
-        interval = { Weekday = 0; Hour = 2; Minute = 0; };
-        options = "--delete-older-than 30d";
-      };
+    package = pkgs.nixVersions.latest;
+    extraOptions = ''
+      experimental-features = nix-command flakes
+    '';
+    optimise.automatic = true;
+    gc = {
+      automatic = true;
+      interval = { Weekday = 0; Hour = 2; Minute = 0; };
+      options = "--delete-older-than 30d";
+    };
   };
 
   nixpkgs.hostPlatform = "aarch64-darwin";
   nixpkgs.config = {
     allowUnfree = true;
-    permittedInsecurePackages = ["electron-33.4.11"];
+    permittedInsecurePackages = [ "electron-33.4.11" ];
   };
 
   system.primaryUser = "dashvallance";
@@ -29,6 +29,7 @@
     jq
     yq
     tmux
+    lftp
 
     fd
     ripgrep
@@ -41,18 +42,22 @@
     fastfetch
 
     dos2unix
+    colordiff
 
+    curl
+    gnugrep
     rsync
     wget
     parallel
+    syncthing
 
-    # network monitor
+    # network
     bandwhich
     iftop
     nload
+    ipcalc
 
     # lsps
-    terraform-ls
     shellcheck
     shfmt
     nixd
@@ -75,6 +80,7 @@
     marksman
     markdown-oxide
     python312Packages.python-lsp-server
+    pyright
     ruff
     svelte-language-server
     vue-language-server
@@ -90,13 +96,14 @@
     yamlfmt
     taplo
     sqlfluff
+    stylua
 
   ];
 
   homebrew = {
     enable = true;
     onActivation = {
-      cleanup = "none"; # set to uninstall or zap later
+      cleanup = "uninstall"; # set to uninstall or zap later
     };
 
     brews = [
@@ -104,23 +111,16 @@
       "azure-cli"
       "azure-functions-core-tools@4"
 
-      "mssql-tools"
-      "mssql-tools18"
-      # "sqlcmd" # conflicts, bundled above
+      "microsoft/mssql-release/mssql-tools"
+      "microsoft/mssql-release/mssql-tools18"
 
-      "terraform"
-      "packer"
+      "hashicorp/tap/terraform"
+      "hashicorp/tap/packer"
 
       "powershell"
 
-      # macOS-specific utilities
-      "duti"                 # File associations
-      "showkey"              # Key display utility
-      "smartmontools"        # Hardware monitoring
-
-      # image/video (dependency hell)
-      # "ffmpeg"
-      # "imagemagick"
+      "duti" # CLI - fix file associations
+      "smartmontools" # Hardware monitoring
 
       "postgresql@14"
       "postgresql@15"
@@ -128,7 +128,6 @@
 
       "pyenv-virtualenv"
 
-      "icu4c@76"
       "python@3.13"
 
       "libmemcached"
@@ -138,10 +137,6 @@
       "fnm"
       "chezmoi"
       "podman"
-
-      "sha2"
-      "python-packaging"
-      "bash-language-server"
     ];
 
     casks = [
@@ -151,6 +146,13 @@
       "orbstack"
       "visual-studio-code"
     ];
+
+    taps = [
+      "hashicorp/tap"
+      "microsoft/mssql-release"
+      "nikitabobko/tap"
+    ];
+
   };
 
   # Set Git commit hash for darwin-version.
