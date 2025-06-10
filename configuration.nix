@@ -1,14 +1,6 @@
-# Edit this configuration file to define what should be installed on
-# your system. Help is available in the configuration.nix(5) man page, on
-# https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
-
 { pkgs, ... }:
-
 {
-  imports =
-    [
-    ];
-
+  # nix configuration
   nix = {
     package = pkgs.nixVersions.latest;
     extraOptions = ''
@@ -16,29 +8,14 @@
     '';
   };
 
+  # boot and filesystem
+  boot.supportedFilesystems = [ "ntfs" "vfat" "ext4" ];
   boot.kernel.sysctl = {
     "vm.swappiness" = 10;
     "vm.dirty_ratio" = 30;
     "vm.dirty_background_ratio" = 5;
     "vm.vfs_cache_pressure" = 50;
   };
-
-  nix.settings.auto-optimise-store = true;
-  nix.gc = {
-    automatic = true;
-    dates = "weekly";
-    options = "--delete-older-than 30d";
-  };
-
-  nixpkgs.config = {
-    allowUnfree = true;
-    permittedInsecurePackages = ["electron-33.4.11"];
-    allowUnsupportedSystem = true;
-    packageOverrides = pkgs: {
-      sddm-astronaut = pkgs.sddm-astronaut.override { embeddedTheme = "japanese_aesthetic"; };
-    };
-  };
-
   boot.loader = {
     efi.canTouchEfiVariables = true;
     grub = {
@@ -49,52 +26,49 @@
     };
   };
 
+  # nix store management
+  nix.settings.auto-optimise-store = true;
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 30d";
+  };
+
+  # networking
   networking.networkmanager.enable = true;
 
+  # graphics and hardware
+  hardware.graphics = {
+    enable = true;
+  };
   hardware.enableAllFirmware = true;
   hardware.enableRedistributableFirmware = true;
+
+  # bluetooth
   hardware.bluetooth = {
     enable = true;
     powerOnBoot = true;
     package = pkgs.bluez;
   };
-
-  # explicit includes to get bluetooth registering
   boot.kernelModules = [ "btintel" "btusb" ];
-
   hardware.firmware = with pkgs; [
     linux-firmware
   ];
   services.dbus.enable = true;
   services.blueman.enable = true;
 
+  # locale and timezone
   time.timeZone = "Australia/Brisbane";
-
-  # network proxy
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-  # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
+
+  # tty (minimal boot/recovery terminal) config
   console = {
     font = "Lat2-Terminus16";
-    # keyMap = "us";
     useXkbConfig = true; # use xkb.options in tty.
   };
 
-  # UI/Display Manager
-  services.xserver = {
-    enable = true;
-    displayManager.gdm = {
-      enable = false;
-      wayland = true;
-    };
-    desktopManager.gnome.enable = false;
-    xkb.layout = "us";
-    xkb.variant = "";
-    excludePackages = with pkgs; [ xterm ];
-  };
-
+  # === desktop environment ===
+  # login (display manager)
   services.displayManager.sddm = {
     wayland.enable = true;
     enable = true;
@@ -107,56 +81,78 @@
     ];
   };
 
+  # compositor (wayland tiling manager)
   programs.hyprland = {
     enable = true;
     xwayland.enable = true;
     withUWSM = true;
   };
 
-  hardware.graphics = {
-    enable = true;
+  # x11 and traditional desktop environments
+  services.xserver = {
+    # if using gnome/kde
+    # enable = true;
+    #
+    # gnome:
+    # displayManager.gdm = {
+    #   enable = false;
+    #   wayland = true;
+    # };
+    # desktopManager.gnome.enable = false;
+    #
+    # kde:
+    # plasma6.enable = true;
+
+    # keyboard and package exclusions
+    xkb.layout = "us";
+    xkb.variant = "";
+    excludePackages = with pkgs; [ xterm ];
   };
 
+  # wayland app compatibility
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
-  xdg.portal.enable = true;
-  xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+  # === desktop environment end ===
 
-  programs.neovim = {
-    enable = true;
-    defaultEditor = true;
-  };
-
-  # Packages
+  # system packages
   environment.systemPackages = with pkgs; [
+    # basic
     kitty
     ghostty
-    zellij
     vim
-    wget
-    bluez
-    bluez-tools
+    python3
+
+    # usbs
     usbutils
     udiskie
-    google-chrome
-    python3
+
+    # bluetooth
+    bluez
+    bluez-tools
+
+    # sys inspection
     iotop
     htop
     btop
     sysstat
     smartmontools
 
+    # gui apps
+    networkmanagerapplet
     spotify
     vlc
     bitwarden-desktop
+    google-chrome
 
+    # util commands
     unzip
     wget
     curl
     gnutar
     gzip
-    networkmanagerapplet
     procs
+    tree
+    eza # better ls/tree
 
     # hyprland
     hyprlock
@@ -170,35 +166,52 @@
     sddm-astronaut
     wofi
     hypridle
-
     wl-clipboard # wl-copy & wl-paste
     clipse # wl-clipboard - persist text/images, tui
     grim # screenshot
     slurp # select area (for screens)
     satty # annotate screenshot
-    pciutils
+    feh # shell image viewer
 
     # waybar deps
     pwvucontrol
     wlogout
     playerctl
-    feh
-
-    # shell file views
-    tree
-    eza # better ls; --tree for tree; -lar instead of -larp
-    lsd
+    pciutils
   ];
 
+
+  # package configuration
+  nixpkgs.config = {
+    allowUnfree = true;
+    permittedInsecurePackages = ["electron-33.4.11"];
+    allowUnsupportedSystem = true;
+    packageOverrides = pkgs: {
+      sddm-astronaut = pkgs.sddm-astronaut.override { embeddedTheme = "japanese_aesthetic"; };
+    };
+  };
+
+  # sandbox app fixes (electron)
+  xdg.portal.enable = true;
+  xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+
+  # fonts
   fonts.packages = with pkgs; [
     lexend
     font-awesome
     nerd-fonts.jetbrains-mono
   ];
 
-  services.printing.enable = true;
+  # programs
+  programs.neovim = {
+    enable = true;
+    defaultEditor = true;
+  };
+  programs.firefox.enable = true;
+  programs.zsh.enable = true;
+  programs.nix-ld.enable = true; # use dynamically linked binaries
 
-  # sound
+  # audio
   security.rtkit.enable = true; # scheduling priority service
   services.pipewire = {
     enable = true;
@@ -208,37 +221,30 @@
     wireplumber.enable = true;
   };
 
-  # auto mounting services
-  services.udisks2.enable = true;
-  services.gvfs.enable = true;
+  # services
+  services.udisks2.enable = true; # auto mounting
+  services.gvfs.enable = true; # auto mounting
+  services.libinput.enable = true; # touchpad support
+  services.openssh.enable = true;
+  services.printing.enable = true;
 
-  # touchpad support (enabled default in most desktopManager).
-  services.libinput.enable = true;
-
-  programs.zsh.enable = true;
-
-  programs.nix-ld.enable = true; # use dynamically linked binaries
-
+  # users
   users.users.dash = {
      isNormalUser = true;
-     extraGroups = [ "wheel" "networkmanager" "audio" "bluetooth" "docker" "storage"]; # Enable ‘sudo’ for the user.
+     extraGroups = [ "wheel" "networkmanager" "audio" "bluetooth" "docker" "storage"];
      shell = pkgs.zsh;
   };
 
-  boot.supportedFilesystems = [ "ntfs" "vfat" "ext4" ];
-
+  # virtualization
   virtualisation.docker = {
     enable = true;
     enableOnBoot = true;
   };
 
-  programs.firefox.enable = true;
-  services.openssh.enable = true;
-
+  # firewall
   networking.firewall.allowedTCPPorts = [ 57621 ]; # spotify
   networking.firewall.allowedUDPPorts = [ 5335 ]; # spotify
 
+  # initial nixos version (for compat)
   system.stateVersion = "24.11";
-
 }
-
