@@ -5,11 +5,7 @@
   home.homeDirectory = "/home/dash";
   home.stateVersion = "24.11";
 
-  programs.nix-index = {
-    enable = true; # show the package when a command isn't found
-    enableZshIntegration = true;
-  };
-
+  # default apps to gnome dark default theming
   gtk = {
     enable = true;
     theme = {
@@ -43,7 +39,7 @@
     # networking
     curl
     wget
-    bind # dns : dig, nslookup
+    bind # dig, nslookup
     whois
     traceroute
     nmap # service discovery
@@ -54,7 +50,7 @@
     netcat
     socat
     sshfs
-    tailscale # best thing
+    tailscale
     websocat
 
     # lsps
@@ -120,13 +116,9 @@
 
     fnm
     nodejs_20
-    # deno
-    # bun
 
     uv
     python3
-
-    # ruby
 
     rustup
     cargo-expand
@@ -153,6 +145,7 @@
     chezmoi
 
     docker-compose
+    # useful but heavy - disabled by default
     # kubectl
     # kubectx
     # k9s
@@ -199,127 +192,12 @@
     recursive = true;
   };
 
-  # ZSH configuration
-  programs.zsh = {
-    enable = true;
-    autosuggestion.enable = true;
-    enableCompletion = true;
-    syntaxHighlighting.enable = true;
-
-    # oh-my-zsh configuration
-    oh-my-zsh = {
-      enable = true;
-      theme = "frisk2";
-      plugins = [
-        "git"
-        "fzf"
-        "zsh-interactive-cd"
-        "docker"
-        "colored-man-pages"
-      ];
-    };
-
-    shellAliases = {
-      python = "python3";
-    };
-
-    # Custom init script with ZSH variable at the top
-    initExtra = ''
-      # Set ZSH variable first
-      export ZSH="$HOME/.oh-my-zsh"
-
-      # Detect OS type
-      case "$(uname -s)" in
-        Darwin*)
-          OS_TYPE="macos"
-          ;;
-        Linux*)
-          OS_TYPE="linux"
-          ;;
-        *)
-          OS_TYPE="unknown"
-          ;;
-      esac
-
-      export FZF_BASE=~/.fzf
-
-      # Z-jump functionality
-      if [ "$OS_TYPE" = "linux" ]; then
-        # Linux-specific settings for z-jump
-        if [ -f ${pkgs.z-lua}/share/z.lua ]; then
-          source ${pkgs.z-lua}/share/z.lua
-        fi
-      fi
-
-      # Editor preference
-      if [[ -n $SSH_CONNECTION ]]; then
-        export EDITOR='vim'
-      else
-        export EDITOR='nvim'
-      fi
-
-      # Java setup - OS specific
-      if [ "$OS_TYPE" = "linux" ]; then
-        # Linux Java configuration
-        setopt NULL_GLOB 2>/dev/null || true
-        for java_path in /usr/lib/jvm/default-java /usr/lib/jvm/java-[0-9]*-openjdk* /usr/lib/jvm/java-[0-9]*-oracle; do
-          if [ -d "$java_path" ]; then
-            export JAVA_HOME="$java_path"
-            export PATH="$JAVA_HOME/bin:$PATH"
-            break
-          fi
-        done
-        unsetopt NULL_GLOB 2>/dev/null || true
-      fi
-
-      # Terraform completion
-      if command -v terraform &>/dev/null; then
-        autoload -U +X bashcompinit && bashcompinit
-        complete -o nospace -C $(which terraform) terraform
-      fi
-
-      # uv completion - if installed
-      if command -v uv &>/dev/null; then
-        eval "$(uv generate-shell-completion zsh 2>/dev/null || true)"
-      fi
-
-      # Environment file - check if exists before sourcing
-      if [ -f "$HOME/.local/bin/env" ]; then
-        . "$HOME/.local/bin/env"
-      fi
-
-      # fnm (Fast Node Manager) setup
-      FNM_PATH="$HOME/.local/share/fnm"
-      if [ -d "$FNM_PATH" ]; then
-        export PATH="$FNM_PATH:$PATH"
-        command -v fnm &>/dev/null && eval "$(fnm env 2>/dev/null || true)"
-        command -v fnm &>/dev/null && eval "$(fnm env --use-on-cd --shell zsh 2>/dev/null || true)"
-      fi
-
-      # GitHub username
-      export GITHUB_USERNAME=dashdotme
-
-      # Custom functions
-      fcd() {
-        local dir
-        dir=$(find ''${1:-.} -type d 2> /dev/null | fzf +m) && cd "$dir"
-      }
-
-      if [ -f "${pkgs.zsh-autosuggestions}/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ]; then
-        source ${pkgs.zsh-autosuggestions}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-      fi
-
-      if [ -f "${pkgs.zsh-syntax-highlighting}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]; then
-        source ${pkgs.zsh-syntax-highlighting}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-      fi
-
-      if [ -d "${pkgs.zsh-completions}/share/zsh-completions" ]; then
-        fpath=(${pkgs.zsh-completions}/share/zsh-completions $fpath)
-      fi
-    '';
-  };
 
   # Program configurations
+  programs.zsh = {
+    enable = true;
+  };
+
   programs.neovim = {
     enable = true;
     defaultEditor = true;
@@ -333,6 +211,10 @@
     options = [ "--cmd cd" ];
   };
 
+  programs.nix-index = {
+    enable = true; # show the package when a command isn't found
+    enableZshIntegration = true;
+  };
 
   # default to nvim on open call
   xdg.mime.enable = true;
@@ -340,7 +222,6 @@
   xdg.mimeApps.defaultApplications = {
     "text/plain" = [ "nvim.desktop" ];
   };
-
 
   xdg.desktopEntries.nvim = {
     name = "Neovim";
