@@ -74,7 +74,7 @@
     marksman
     markdown-oxide
     mojo
-    python312Packages.python-lsp-server
+    pyright
     ruff
     svelte-language-server
     vue-language-server
