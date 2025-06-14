@@ -36,22 +36,12 @@
   };
 
   home.packages = with pkgs; [
-    # networking
-    curl
-    wget
-    bind # dig, nslookup
-    whois
-    traceroute
-    nmap # service discovery
-    ipcalc
-    iperf3
-    mtr
-    tcpdump
-    netcat
-    socat
-    sshfs
-    tailscale
-    websocat
+    # development
+    git
+    gh # github
+    direnv
+    chezmoi
+    vscode
 
     # lsps
     nixd
@@ -73,9 +63,7 @@
     lua-language-server
     marksman
     markdown-oxide
-    mojo
     pyright
-    ruff
     svelte-language-server
     vue-language-server
     yaml-language-server
@@ -90,37 +78,18 @@
     yamlfmt
     taplo
     sqlfluff
+    shellcheck
 
-    postgresql_17
-
-    uutils-coreutils-noprefix # swap gnu coreutils for uutils aliases
-
-    # proxy/tunnel
-    proxychains
-    ngrok
-
-    # http
-    httpie # client
-    siege # load test/benchmarking
-
-    # network monitor
-    bandwhich
-    iftop
-    nload
-
-    dnsutils
-
-    git
-    gh # github
-    direnv
-
+    # runtime/languages
     fnm
     nodejs_20
-
     uv
     python3
-
     rustup
+    gcc
+    mojo
+
+    # rust tooling
     cargo-expand
     cargo-watch
     cargo-edit
@@ -128,10 +97,36 @@
     cargo-info
     rusty-man
 
-    gcc
+    # networking
+    wget
+    bind # dig, nslookup
+    whois
+    traceroute
+    nmap # service discovery
+    ipcalc
+    iperf3
+    mtr
+    tcpdump
+    netcat
+    socat
+    sshfs
+    tailscale
+    websocat
+    dnsutils
+    httpie # client
+    siege # load test/benchmarking
 
-    shellcheck
-    shfmt
+    # network monitoring
+    bandwhich
+    iftop
+    nload
+
+    # proxy/tunnel
+    proxychains
+    ngrok
+
+    # cli utils
+    uutils-coreutils-noprefix # swap gnu coreutils for uutils aliases
     fzf
     ripgrep
     ripgrep-all
@@ -142,33 +137,20 @@
     yq
     gitui
     dua
-    chezmoi
-
-    docker-compose
-    # useful but heavy - disabled by default
-    # kubectl
-    # kubectx
-    # k9s
-    # helm
-    terraform
-    terraform-ls
-
-    azure-cli
-    awscli2
-
     htop
     btop
     fastfetch
-
-    fzf
-
-    just
     mprocs
     tokei # count code tokens
-    presenterm # markdown -> slideshow
 
-    vscode
-    obs-studio
+    # cloud
+    docker-compose
+    terraform
+    azure-cli
+    awscli2
+
+    # database
+    postgresql_17
 
     # style
     matugen
@@ -176,6 +158,9 @@
 
     # laptop
     brightnessctl
+
+    # media
+    obs-studio
   ];
 
   home.file.".zshrc".enable = false;
@@ -193,30 +178,34 @@
   };
 
 
-  # Program configurations
-  programs.zsh = {
-    enable = true;
+  # program configurations
+  programs = {
+    zsh = {
+      enable = true;
+    };
+
+    neovim = {
+      enable = true;
+      defaultEditor = true;
+      viAlias = true;
+      vimAlias = true;
+    };
+
+    zoxide = {
+      enable = true;
+      enableZshIntegration = true;
+      options = [ "--cmd cd" ];
+    };
+
+    nix-index = {
+      enable = true;
+      enableZshIntegration = true;
+    };
+
+    home-manager.enable = true;
   };
 
-  programs.neovim = {
-    enable = true;
-    defaultEditor = true;
-    viAlias = true;
-    vimAlias = true;
-  };
-
-  programs.zoxide = {
-    enable = true;
-    enableZshIntegration = true;
-    options = [ "--cmd cd" ];
-  };
-
-  programs.nix-index = {
-    enable = true; # show the package when a command isn't found
-    enableZshIntegration = true;
-  };
-
-  # default to nvim on open call
+  # default to nvim as editor
   xdg.mime.enable = true;
   xdg.mimeApps.enable = true;
   xdg.mimeApps.defaultApplications = {
@@ -231,7 +220,4 @@
     mimeType = [ "text/plain" "text/markdown" ];
     categories = [ "Development" "TextEditor" ];
   };
-
-  # Let Home Manager manage itself
-  programs.home-manager.enable = true;
 }

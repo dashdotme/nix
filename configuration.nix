@@ -113,7 +113,6 @@
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
   # === desktop environment end ===
-
   # system packages
   environment.systemPackages = with pkgs; [
     # basic
@@ -189,7 +188,7 @@
   # package configuration
   nixpkgs.config = {
     allowUnfree = true;
-    permittedInsecurePackages = ["electron-33.4.11"];
+    permittedInsecurePackages = [ "electron-33.4.11" ];
     allowUnsupportedSystem = true;
     packageOverrides = pkgs: {
       sddm-astronaut = pkgs.sddm-astronaut.override { embeddedTheme = "japanese_aesthetic"; };
@@ -208,13 +207,13 @@
   ];
 
   # programs
-  programs.neovim = {
-    enable = true;
-    defaultEditor = true;
+  programs = {
+    neovim.enable = true;
+    neovim.defaultEditor = true;
+    firefox.enable = true;
+    zsh.enable = true;
+    nix-ld.enable = true; # use dynamically linked binaries
   };
-  programs.firefox.enable = true;
-  programs.zsh.enable = true;
-  programs.nix-ld.enable = true; # use dynamically linked binaries
 
   # audio
   security.rtkit.enable = true; # scheduling priority service
@@ -226,18 +225,20 @@
     wireplumber.enable = true;
   };
 
-  # services
-  services.udisks2.enable = true; # auto mounting
-  services.gvfs.enable = true; # auto mounting
-  services.libinput.enable = true; # touchpad support
-  services.openssh.enable = true;
-  services.printing.enable = true;
+  # misc services
+  services = {
+    udisks2.enable = true; # auto mounting
+    gvfs.enable = true; # auto mounting
+    libinput.enable = true; # touchpad support
+    openssh.enable = true;
+    printing.enable = true;
+  };
 
   # users
   users.users.dash = {
-     isNormalUser = true;
-     extraGroups = [ "wheel" "networkmanager" "audio" "bluetooth" "docker" "storage"];
-     shell = pkgs.zsh;
+    isNormalUser = true;
+    extraGroups = [ "wheel" "networkmanager" "audio" "bluetooth" "docker" "storage" ];
+    shell = pkgs.zsh;
   };
 
   # virtualization
