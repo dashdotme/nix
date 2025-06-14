@@ -137,14 +137,19 @@
     sysstat
     smartmontools
 
-    # gui apps
-    networkmanagerapplet
-    spotify
-    vlc
-    bitwarden-desktop
-    google-chrome
+    # cloud storage manager
+    rclone
 
-    # util commands
+    # gui apps
+    networkmanagerapplet # wifi ui
+    spotify # music
+    vlc # video
+    bitwarden-desktop # pw manager
+    google-chrome
+    obsidian # markdown
+    zathura # pdfs
+
+    # cli utils
     unzip
     wget
     curl
@@ -155,7 +160,7 @@
     eza # better ls/tree
 
     # hyprland
-    hyprlock
+    hyprlock # lock screen
     waybar # menu bar
     dunst # notifications
     libnotify # dunst dependency
@@ -163,9 +168,9 @@
     swww # wallpaper
     rofi-wayland # app launcher
     hyprpolkitagent # auth daemon
-    sddm-astronaut
-    wofi
-    hypridle
+    sddm-astronaut # login + login themes
+    wofi # launcher
+    hypridle # idling daemon
     wl-clipboard # wl-copy & wl-paste
     clipse # wl-clipboard - persist text/images, tui
     grim # screenshot
@@ -174,10 +179,10 @@
     feh # shell image viewer
 
     # waybar deps
-    pwvucontrol
-    wlogout
-    playerctl
-    pciutils
+    pwvucontrol # sound gui
+    wlogout # logout gui
+    playerctl # media cli
+    pciutils # hardware monitoring
   ];
 
 
