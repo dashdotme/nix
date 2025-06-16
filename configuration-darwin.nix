@@ -22,6 +22,7 @@
 
   system.primaryUser = "dashvallance";
 
+  # below currently serves in place of a home manager config for darwin
   environment.systemPackages = with pkgs; [
     # basics
     neovim
@@ -48,6 +49,7 @@
     syncthing
     fnm
     chezmoi
+    rclone
 
     # nix
     direnv
@@ -156,10 +158,7 @@
 
   };
 
-  # Set Git commit hash for darwin-version.
   system.configurationRevision = self.rev or self.dirtyRev or null;
 
-  # Used for backwards compatibility, please read the changelog before changing.
-  # $ darwin-rebuild changelog -- flake /etc/nix-darwin#macbook
   system.stateVersion = 6;
 }

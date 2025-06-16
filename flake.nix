@@ -13,12 +13,13 @@
     };
   };
 
-  outputs = { nixpkgs-linux, nixpkgs-macos, nix-darwin, home-manager, self, ... }:
+  outputs = { nixpkgs-linux, nix-darwin, home-manager, self, ... }:
   let
     mkNixosSystem = modules: nixpkgs-linux.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
-        ./configuration.nix
+        ./configuration-shared.nix
+        ./configuration-linux.nix
 
         # Custom packages
         {
@@ -41,9 +42,11 @@
 
     mkDarwinSystem = modules: nix-darwin.lib.darwinSystem {
       system = "aarch64-darwin";
-      specialArgs = { inherit self; };  # Make self available to all modules
+      specialArgs = { inherit self; };
       modules = [
+        ./configuration-shared.nix
         ./configuration-darwin.nix
+        # refactor for home manager not done yet
         # home-manager.darwinModules.home-manager
         # {
         #   home-manager.useGlobalPkgs = true;

@@ -11,11 +11,11 @@
         "dmask=022"     # 755
         "fmask=133"     # 533 | 644
         "windows_names" # magic for windows compat
-        "noauto"        # Don't auto-mount at boot
-        "user"          # Allow user mounting
-        "nofail"        # Don't fail boot if mount fails
-        "x-systemd.automount"  # Auto-mount on access instead
-        "x-systemd.device-timeout=10"  # Timeout quickly
+        "noauto"        # don't auto-mount at boot
+        "user"          # allow user mounting
+        "nofail"        # don't fail boot if mount fails
+        "x-systemd.automount"  # auto-mount on access
+        "x-systemd.device-timeout=10"  # fail fast
       ];
     };
 
