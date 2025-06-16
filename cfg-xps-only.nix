@@ -11,7 +11,7 @@
 
   boot.kernelModules = [ "btintel" "btusb" ];
 
-  # something is muting speakers at startup
+  # workaround: something is muting speakers at startup
   boot.extraModprobeConfig = ''
     options snd-hda-intel model=dell-headset-multi
   '';

@@ -1,4 +1,5 @@
-# src: https://github.com/noverby/noverby/blob/main/config/packages/mojo.nix
+## Attribution: Adapted from https://github.com/noverby/noverby/blob/main/config/packages/mojo.nix
+# Original licensed under AGPL-3.0
 {
   lib,
   stdenv,
