@@ -21,15 +21,6 @@
         ./configuration-shared.nix
         ./configuration-linux.nix
 
-        # Custom packages
-        {
-          nixpkgs.overlays = [
-            (final: prev: {
-              mojo = prev.callPackage ./packages/mojo.nix {};
-            })
-          ];
-        }
-
         home-manager.nixosModules.home-manager
         {
           home-manager.useGlobalPkgs = true;
@@ -75,8 +66,6 @@
 
     darwinConfigurations = {
       macbook = mkDarwinSystem [
-        # todo
-        # ./cfg-macbook.nix
       ];
     };
   };

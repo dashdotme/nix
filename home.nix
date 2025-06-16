@@ -87,7 +87,6 @@
     python3
     rustup
     gcc
-    mojo
 
     # rust tooling
     cargo-expand
