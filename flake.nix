@@ -1,5 +1,5 @@
 {
-  description = "My NixOS/MacOS configuration using home manager";
+  description = "My NixOS/MacOS configuration";
   inputs = {
     nixpkgs-linux.url = "github:NixOS/nixpkgs/nixos-25.05";
     nixpkgs-macos.url = "github:NixOS/nixpkgs/nixpkgs-25.05-darwin";
@@ -37,14 +37,6 @@
       modules = [
         ./configuration-shared.nix
         ./configuration-darwin.nix
-        # refactor for home manager not done yet
-        # home-manager.darwinModules.home-manager
-        # {
-        #   home-manager.useGlobalPkgs = true;
-        #   home-manager.useUserPackages = true;
-        #   home-manager.backupFileExtension = "backup";
-        #   home-manager.users.dash = import ./home-darwin.nix;
-        # }
       ] ++ modules;
     };
   in
