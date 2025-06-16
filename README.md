@@ -17,12 +17,10 @@ Though in practice I fullscreen the windows with a bind.
 ## My Config Guidelines
 
 1. Keep things simple, until there's a reason not to
-2. Familiarity beats simplicity; a quick working solution beats a beautiful WIP; you can always tidy something that works
-
-      - this is part of why Nix is great; you can break complex things (setting up a
-      custom OS) into small steps
-
-3. Nix doesn't need to do everything
+2. Familiarity beats simplicity
+3. A quick working solution beats a beautiful WIP
+4. Nix doesn't need to do everything
+5. You can always tidy later, but you should tidy
 
 My dotfiles, managed with [Chezmoi](https://www.chezmoi.io/), are
 [here](https://github.com/dashdotme/dotfiles).
