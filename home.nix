@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
   home.username = "dash";
@@ -218,5 +218,26 @@
     terminal = false;
     mimeType = [ "text/plain" "text/markdown" ];
     categories = [ "Development" "TextEditor" ];
+  };
+
+  # feh wrapper, so it's selectable in Rofi, and can open arbitrary folders
+  home.file.".local/bin/feh-browser" = {
+    text = ''
+      #!/usr/bin/env bash
+      dir=$(${pkgs.findutils}/bin/find ${config.home.homeDirectory} -type d | ${pkgs.rofi-wayland}/bin/rofi -dmenu -p "Select directory:")
+      [ -n "$dir" ] && ${pkgs.feh}/bin/feh "$dir"
+    '';
+    executable = true;
+  };
+
+  xdg.desktopEntries.feh-browser = {
+    name = "Feh";
+    genericName = "Image Viewer";
+    comment = "Browse images from selected directory";
+    exec = "${config.home.homeDirectory}/.local/bin/feh-browser";
+    icon = "image-x-generic";
+    terminal = false;
+    type = "Application";
+    categories = [ "Graphics" "Photography" "Viewer" ];
   };
 }
