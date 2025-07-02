@@ -160,6 +160,7 @@
 
     # media
     obs-studio
+    imagemagick
   ];
 
   home.file.".zshrc".enable = false;
