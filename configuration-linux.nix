@@ -129,6 +129,9 @@
     bluez
     bluez-tools
 
+    # sound
+    alsa-utils
+
     # sys inspection
     iotop
     htop
@@ -182,6 +185,9 @@
     wlogout # logout gui
     playerctl # media cli
     pciutils # hardware monitoring
+
+    # games
+    lutris
   ];
 
 
@@ -223,6 +229,15 @@
     alsa.support32Bit = true;
     pulse.enable = true;
     wireplumber.enable = true;
+
+
+    extraConfig.pipewire = {
+      "10-clock-rate" = {
+        "context.properties" = {
+          "default.clock.rate" = 48000;
+        };
+      };
+    };
   };
 
   # misc services

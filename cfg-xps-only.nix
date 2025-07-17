@@ -16,6 +16,12 @@
     options snd-hda-intel model=dell-headset-multi
   '';
 
+
+  hardware.firmware = with pkgs; [
+    linux-firmware
+    sof-firmware
+  ];
+
   systemd.user.services.unmute-audio = {
     description = "Ensure audio is unmuted";
     wantedBy = [ "default.target" ];
@@ -30,5 +36,9 @@
   systemd.services.systemd-suspend.environment.SYSTEMD_SLEEP_FREEZE_USER_SESSIONS = "false";
 
   networking.hostName = "xps";
+  environment.systemPackages = with pkgs; [
+    thunderbolt
+  ];
 
+  services.hardware.bolt.enable = true;
 }
