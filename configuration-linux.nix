@@ -141,6 +141,7 @@
 
     # cloud storage manager
     rclone
+    onedrive # better caching, works around onedrive rate limits
 
     # gui apps
     networkmanagerapplet # wifi ui
