@@ -2,6 +2,8 @@
 
 {
 
+  nix.settings.download-buffer-size = 2147483648;  # 2 GB; to speed up flake bumps
+
   powerManagement.powertop.enable = true;
 
   boot.kernelParams = [

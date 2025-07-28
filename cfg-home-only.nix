@@ -1,6 +1,9 @@
 { config, ...}:
 
 {
+
+  nix.settings.download-buffer-size = 4294967296; # 4 GB; to speed up flake bumps
+
   services.xserver.videoDrivers = [ "nvidia" ];
 
   hardware.nvidia = {
