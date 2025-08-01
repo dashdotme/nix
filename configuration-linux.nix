@@ -231,7 +231,6 @@
     pulse.enable = true;
     wireplumber.enable = true;
 
-
     extraConfig.pipewire = {
       "10-clock-rate" = {
         "context.properties" = {
