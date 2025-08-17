@@ -220,6 +220,7 @@
     firefox.enable = true;
     zsh.enable = true;
     nix-ld.enable = true; # use dynamically linked binaries
+    steam.enable = true;
   };
 
   # audio

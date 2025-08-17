@@ -147,6 +147,7 @@
     terraform
     azure-cli
     awscli2
+    doctl
 
     # database
     postgresql_17
