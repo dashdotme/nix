@@ -17,8 +17,8 @@
       package = pkgs.adwaita-icon-theme;
     };
     cursorTheme = {
-      name = "Adwaita";
-      package = pkgs.adwaita-icon-theme;
+      name = "rose-pine";
+      package = pkgs.rose-pine-hyprcursor;
     };
   };
 
@@ -155,6 +155,7 @@
     # style
     matugen
     pywal
+    rose-pine-hyprcursor
 
     # laptop
     brightnessctl
@@ -177,7 +178,6 @@
     };
     recursive = true;
   };
-
 
   # program configurations
   programs = {
