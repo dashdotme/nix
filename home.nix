@@ -42,6 +42,7 @@
     direnv
     chezmoi
     vscode
+    slack
 
     # lsps
     nixd
