@@ -204,6 +204,11 @@
       enableZshIntegration = true;
     };
 
+    waybar = {
+      enable = true;
+      systemd.enable = true;
+    };
+
     home-manager.enable = true;
   };
 

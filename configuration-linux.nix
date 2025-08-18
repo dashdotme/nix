@@ -164,7 +164,7 @@
 
     # hyprland
     hyprlock # lock screen
-    waybar # menu bar
+    waybar # menu bar - duplicated to be explicit; actually managed via programs.waybar in home.nix
     dunst # notifications
     libnotify # dunst dependency
     yazi # tui file manager
