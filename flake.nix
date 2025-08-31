@@ -11,9 +11,10 @@
       url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs-linux";
     };
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
   };
 
-  outputs = { nixpkgs-linux, nix-darwin, home-manager, self, ... }:
+  outputs = { nixpkgs-linux, nix-darwin, home-manager, nixos-hardware, self, ... }:
   let
     mkNixosSystem = modules: nixpkgs-linux.lib.nixosSystem {
       system = "x86_64-linux";
@@ -50,6 +51,7 @@
       ];
 
       xps = mkNixosSystem [
+        nixos-hardware.nixosModules.dell-xps-13-9310
         ./hardware-xps.nix
         ./mounts-xps.nix
         ./cfg-xps-only.nix
