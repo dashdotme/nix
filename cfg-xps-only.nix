@@ -4,7 +4,9 @@
 
   nix.settings.download-buffer-size = 2147483648;  # 2 GB; to speed up flake bumps
 
-  powerManagement.powertop.enable = true;
+  # Power management
+  services.tlp.enable = true;
+  # powerManagement.powertop.enable = true; # doesn't seem great
 
   boot.kernelParams = [
     "i915.enable_dc=0"

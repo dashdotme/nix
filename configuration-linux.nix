@@ -269,6 +269,9 @@
   networking.firewall.allowedTCPPorts = [ 57621 ]; # spotify
   networking.firewall.allowedUDPPorts = [ 5335 ]; # spotify
 
+  # ssd maintenance
+  services.fstrim.enable = true;
+
   # initial nixos version (for compat)
   system.stateVersion = "24.11";
 }
