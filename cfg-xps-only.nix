@@ -10,7 +10,7 @@
 
   boot.kernelParams = [
     "i915.enable_dc=0"
-    "intel_idle.max_cstate=1"
+    # "intel_idle.max_cstate=1"
   ];
 
   boot.kernelModules = [ "btintel" "btusb" ];
