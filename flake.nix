@@ -12,9 +12,10 @@
       inputs.nixpkgs.follows = "nixpkgs-linux";
     };
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+    nixarr.url = "github:rasmus-kirk/nixarr";
   };
 
-  outputs = { nixpkgs-linux, nix-darwin, home-manager, nixos-hardware, self, ... }:
+  outputs = { nixpkgs-linux, nix-darwin, home-manager, nixos-hardware, nixarr, self, ... }:
   let
     mkNixosSystem = modules: nixpkgs-linux.lib.nixosSystem {
       system = "x86_64-linux";
@@ -52,6 +53,7 @@
 
       xps = mkNixosSystem [
         nixos-hardware.nixosModules.dell-xps-13-9310
+        nixarr.nixosModules.default
         ./hardware-xps.nix
         ./mounts-xps.nix
         ./cfg-xps-only.nix
