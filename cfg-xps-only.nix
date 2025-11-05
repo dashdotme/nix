@@ -58,11 +58,33 @@
   environment.systemPackages = with pkgs; [
     thunderbolt
     torrential
-    # jellyfin
+    jellyfin
+    stremio
+
+    gnome-network-displays
+    gst_all_1.gstreamer
+    gst_all_1.gst-plugins-base
+    gst_all_1.gst-plugins-good
+    gst_all_1.gst-plugins-bad
+    gst_all_1.gst-plugins-ugly
+    gst_all_1.gst-libav
+    gst_all_1.gst-vaapi
   ];
 
-  networking.firewall.allowedTCPPorts = [ 8096 ];
+  networking.firewall = {
+    allowedTCPPorts = [
+      8008   # chromecast
+      8009   # chromecast
+      8096   # jellyfin
+    ];
+    allowedUDPPorts = [
+      5253   # gnome-network-displays
+      5353   # gnome-network-displays / mDNS
+      7256   # gnome-network-displays
+    ];
+  };
   services.hardware.bolt.enable = true;
+  services.avahi.enable = true;
 
   nixarr = {
     enable = true;
@@ -90,21 +112,25 @@
       # };
     };
 
-    transmission = {
-      enable = true;
+    # transmission = {
+      # enable = true;
       # vpn.enable = true;
       # peerPort = 50000; # Set this to the port forwarded by your VPN
-    };
+    # };
 
     # It is possible for this module to run the *Arrs through a VPN, but it
     # is generally not recommended, as it can cause rate-limiting issues.
-    bazarr.enable = true;
-    lidarr.enable = true;
-    prowlarr.enable = true;
-    radarr.enable = true;
-    readarr.enable = true;
-    sonarr.enable = true;
-    jellyseerr.enable = true;
-    sabnzbd.enable = true;
+    # bazarr.enable = true;
+    # lidarr.enable = true;
+    # prowlarr.enable = true;
+    # radarr.enable = true;
+    # readarr.enable = true;
+    # sonarr.enable = true;
+    # jellyseerr.enable = true;
+    # sabnzbd.enable = true;
   };
+
+  # Also ensure your user is in the plugdev group
+  users.groups.plugdev = {};
+  users.users.dash.extraGroups = [ "plugdev" ];
 }
