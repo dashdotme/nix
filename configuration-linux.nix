@@ -189,8 +189,10 @@
 
     # games
     lutris
+    discord
   ];
 
+  home-manager.backupFileExtension = "backup";
 
   # package configuration
   nixpkgs.config = {
