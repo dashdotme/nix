@@ -61,6 +61,7 @@
     jellyfin
     stremio
 
+    # casting eg. to chromecast
     gnome-network-displays
     gst_all_1.gstreamer
     gst_all_1.gst-plugins-base
@@ -130,7 +131,4 @@
     # sabnzbd.enable = true;
   };
 
-  # Also ensure your user is in the plugdev group
-  users.groups.plugdev = {};
-  users.users.dash.extraGroups = [ "plugdev" ];
 }
