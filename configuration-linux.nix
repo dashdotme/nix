@@ -49,6 +49,17 @@
     enable = true;
     powerOnBoot = true;
     package = pkgs.bluez;
+    # headaches with bose headphones + profile switching for calls
+    settings = {
+      General = {
+        Enable = "Source,Sink,Media,Socket";
+        Experimental = true;
+        KernelExperimental = true;
+      };
+      Policy = {
+        AutoEnable = true;
+      };
+    };
   };
   boot.kernelModules = [ "btintel" "btusb" ];
   hardware.firmware = with pkgs; [
@@ -56,6 +67,33 @@
   ];
   services.dbus.enable = true;
   services.blueman.enable = true;
+
+  # audio
+  security.rtkit.enable = true; # scheduling priority service
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+    wireplumber.enable = true;
+
+    extraConfig.pipewire = {
+      "10-clock-rate" = {
+        "context.properties" = {
+          "default.clock.rate" = 48000;
+        };
+      };
+    # headaches with bose headphones + profile switching for calls
+      "51-bluez-headset" = {
+          "monitor.bluez.properties" = {
+            "bluez5.enable-sbc-xq" = true;
+            "bluez5.enable-msbc" = true;
+            "bluez5.enable-hw-volume" = true;
+            "bluez5.roles" = [ "hsp_hs" "hsp_ag" "hfp_hf" "hfp_ag" ];
+          };
+        };
+    };
+  };
 
   # locale and timezone
   time.timeZone = "Australia/Brisbane";
@@ -221,24 +259,6 @@
     zsh.enable = true;
     nix-ld.enable = true; # use dynamically linked binaries
     steam.enable = true;
-  };
-
-  # audio
-  security.rtkit.enable = true; # scheduling priority service
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-    wireplumber.enable = true;
-
-    extraConfig.pipewire = {
-      "10-clock-rate" = {
-        "context.properties" = {
-          "default.clock.rate" = 48000;
-        };
-      };
-    };
   };
 
   # misc services
