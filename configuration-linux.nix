@@ -207,7 +207,7 @@
     libnotify # dunst dependency
     yazi # tui file manager
     swww # wallpaper
-    rofi-wayland # app launcher
+    rofi # app launcher
     hyprpolkitagent # auth daemon
     sddm-astronaut # login + login themes
     wofi # launcher
@@ -228,6 +228,10 @@
     # games
     lutris
     discord
+
+    # clouds
+    awscli2
+    azure-cli
   ];
 
   # package configuration

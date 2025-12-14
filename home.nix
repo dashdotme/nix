@@ -46,7 +46,7 @@
 
     # lsps
     nixd
-    (lowPrio rust-analyzer)
+    (lib.lowPrio rust-analyzer)
     angular-language-server
     bash-language-server
     clang-tools # clangd - c, c++
@@ -166,7 +166,6 @@
     imagemagick
   ];
 
-  home.file.".zshrc".enable = false;
   home.file.".oh-my-zsh/custom/themes/frisk2.zsh-theme".enable = false;
 
   # Install oh-my-zsh from GitHub
@@ -183,7 +182,7 @@
   # program configurations
   programs = {
     zsh = {
-      enable = true;
+      enable = false;
     };
 
     neovim = {
@@ -232,7 +231,7 @@
   home.file.".local/bin/feh-browser" = {
     text = ''
       #!/usr/bin/env bash
-      dir=$(${pkgs.findutils}/bin/find ${config.home.homeDirectory} -type d | ${pkgs.rofi-wayland}/bin/rofi -dmenu -p "Select directory:")
+      dir=$(${pkgs.findutils}/bin/find ${config.home.homeDirectory} -type d | ${pkgs.rofi}/bin/rofi -dmenu -p "Select directory:")
       [ -n "$dir" ] && ${pkgs.feh}/bin/feh "$dir"
     '';
     executable = true;

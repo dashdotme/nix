@@ -64,7 +64,7 @@
     shellcheck
     shfmt
     nixd
-    (lowPrio rust-analyzer)
+    (lib.lowPrio rust-analyzer)
     angular-language-server
     bash-language-server
     clang-tools # clangd - c, c++
