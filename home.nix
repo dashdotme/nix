@@ -174,7 +174,7 @@
       owner = "ohmyzsh";
       repo = "ohmyzsh";
       rev = "master";
-      sha256 = "rjN+/5P/q7uXSVGf/jypOCYLvoGYGPMZTy1dL9+E4Uc=";
+      sha256 = "cu+QEDG/Wt3PYt1w5DQMH0DU2/JdwXKU974gG65XAaY=";
     };
     recursive = true;
   };
