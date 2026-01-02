@@ -37,6 +37,13 @@
   # networking
   networking.networkmanager.enable = true;
   services.tailscale.enable = true;
+  networking.nameservers = [ "8.8.8.8" "1.1.1.1" ];
+  services.resolved = {
+    enable = true;
+    dnssec = "true";
+    dnsovertls = "opportunistic";
+    fallbackDns = [ "8.8.8.8" "1.1.1.1" ];
+  };
 
   # graphics and hardware
   hardware.graphics = {
