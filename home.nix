@@ -88,6 +88,10 @@
     python3
     rustup
     gcc
+    go
+    gopls
+    gotools
+
 
     # rust tooling
     cargo-expand
@@ -110,7 +114,6 @@
     netcat
     socat
     sshfs
-    tailscale
     websocat
     dnsutils
     httpie # client
