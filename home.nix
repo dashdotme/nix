@@ -145,6 +145,7 @@
     fastfetch
     mprocs
     tokei # count code tokens
+    tree-sitter
 
     # cloud
     docker-compose
