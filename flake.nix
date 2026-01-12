@@ -60,7 +60,11 @@
           ./cfg-xps-only.nix
         ];
 
-        fw = mkNixosSystem [ ./hardware-fw.nix ./cfg-fw-only.nix ];
+        fw = mkNixosSystem [
+          nixarr.nixosModules.default
+          ./hardware-fw.nix
+          ./cfg-fw-only.nix
+        ];
       };
 
       darwinConfigurations = {
