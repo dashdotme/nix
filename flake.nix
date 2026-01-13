@@ -62,6 +62,7 @@
 
         fw = mkNixosSystem [
           nixarr.nixosModules.default
+          ./modules/media-server.nix
           ./hardware-fw.nix
           ./cfg-fw-only.nix
         ];
