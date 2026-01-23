@@ -240,6 +240,9 @@
     # clouds
     awscli2
     azure-cli
+
+    postgresql_17
+    openssl
   ];
 
   # package configuration
@@ -280,6 +283,10 @@
     libinput.enable = true; # touchpad support
     openssh.enable = true;
     printing.enable = true;
+    postgresql = {
+      enable = true;
+      package = pkgs.postgresql_17;
+    };
   };
 
   # users

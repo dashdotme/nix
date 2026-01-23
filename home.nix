@@ -154,9 +154,6 @@
     awscli2
     doctl
 
-    # database
-    postgresql_17
-
     # style
     matugen
     pywal
