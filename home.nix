@@ -143,7 +143,6 @@
     htop
     btop
     fastfetch
-    mprocs
     tokei # count code tokens
     tree-sitter
 
@@ -165,6 +164,10 @@
     # media
     obs-studio
     imagemagick
+
+    claude-code
+    thunderbird
+    libreoffice
   ];
 
   home.file.".oh-my-zsh/custom/themes/frisk2.zsh-theme".enable = false;
