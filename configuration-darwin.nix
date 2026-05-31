@@ -17,7 +17,7 @@
   nixpkgs.hostPlatform = "aarch64-darwin";
   nixpkgs.config = {
     allowUnfree = true;
-    permittedInsecurePackages = [ "electron-33.4.11" ];
+    permittedInsecurePackages = [ "electron-39.8.10" ];
   };
 
   system.primaryUser = "dashvallance";
@@ -92,8 +92,8 @@
 
     # formatters
     nixpkgs-fmt
-    nodePackages.prettier
-    nodePackages.eslint
+    prettier
+    eslint
     csharpier
     shfmt
     yamlfmt

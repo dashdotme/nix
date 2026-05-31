@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   home.username = "dash";
@@ -12,6 +12,8 @@
       name = "Adwaita-dark";
       package = pkgs.gnome-themes-extra;
     };
+    # 26.05 changed the gtk4 theme default to null; keep applying our theme to GTK4 apps
+    gtk4.theme = config.gtk.theme;
     iconTheme = {
       name = "Adwaita";
       package = pkgs.adwaita-icon-theme;
@@ -72,8 +74,8 @@
 
     # formatters
     nixpkgs-fmt
-    nodePackages.prettier
-    nodePackages.eslint
+    prettier
+    eslint
     csharpier
     shfmt
     yamlfmt
@@ -83,7 +85,7 @@
 
     # runtime/languages
     fnm
-    nodejs_20
+    nodejs_22
     uv
     python3
     rustup
@@ -168,7 +170,12 @@
     claude-code
     thunderbird
     libreoffice
+    betterdiscordctl
   ];
+
+  home.activation.betterdiscord = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    ${pkgs.betterdiscordctl}/bin/betterdiscordctl install || true
+  '';
 
   home.file.".oh-my-zsh/custom/themes/frisk2.zsh-theme".enable = false;
 
@@ -194,6 +201,9 @@
       defaultEditor = true;
       viAlias = true;
       vimAlias = true;
+      # 26.05 flipped these defaults to false; keep the providers we had
+      withRuby = true;
+      withPython3 = true;
     };
 
     zoxide = {

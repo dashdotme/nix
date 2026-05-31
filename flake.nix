@@ -1,14 +1,14 @@
 {
   description = "My NixOS/MacOS configuration";
   inputs = {
-    nixpkgs-linux.url = "github:NixOS/nixpkgs/nixos-25.11";
-    nixpkgs-macos.url = "github:NixOS/nixpkgs/nixpkgs-25.11-darwin";
+    nixpkgs-linux.url = "github:NixOS/nixpkgs/nixos-26.05";
+    nixpkgs-macos.url = "github:NixOS/nixpkgs/nixpkgs-26.05-darwin";
     nix-darwin = {
-      url = "github:nix-darwin/nix-darwin/nix-darwin-25.11";
+      url = "github:nix-darwin/nix-darwin/nix-darwin-26.05";
       inputs.nixpkgs.follows = "nixpkgs-macos";
     };
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.11";
+      url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs-linux";
     };
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";

@@ -40,9 +40,11 @@
   networking.nameservers = [ "8.8.8.8" "1.1.1.1" ];
   services.resolved = {
     enable = true;
-    dnssec = "true";
-    dnsovertls = "opportunistic";
-    fallbackDns = [ "8.8.8.8" "1.1.1.1" ];
+    settings.Resolve = {
+      DNSSEC = "true";
+      DNSOverTLS = "opportunistic";
+      FallbackDNS = [ "8.8.8.8" "1.1.1.1" ];
+    };
   };
 
   # graphics and hardware
@@ -214,7 +216,7 @@
     dunst # notifications
     libnotify # dunst dependency
     yazi # tui file manager
-    swww # wallpaper
+    awww # wallpaper (formerly swww)
     rofi # app launcher
     hyprpolkitagent # auth daemon
     sddm-astronaut # login + login themes
@@ -248,7 +250,7 @@
   # package configuration
   nixpkgs.config = {
     allowUnfree = true;
-    permittedInsecurePackages = [ "electron-33.4.11" ];
+    permittedInsecurePackages = [ "electron-39.8.10" ];
     allowUnsupportedSystem = true;
     packageOverrides = pkgs: {
       sddm-astronaut = pkgs.sddm-astronaut.override { embeddedTheme = "japanese_aesthetic"; };
