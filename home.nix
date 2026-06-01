@@ -204,6 +204,12 @@
       # 26.05 flipped these defaults to false; keep the providers we had
       withRuby = true;
       withPython3 = true;
+      # 26.05's neovim module always generates init.lua (for the provider
+      # host paths), which clobbers the LazyVim starter's init.lua. Re-add
+      # the bootstrap so it loads lua/config/lazy.lua from ~/.config/nvim.
+      extraLuaConfig = ''
+        require("config.lazy")
+      '';
     };
 
     zoxide = {
