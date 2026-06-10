@@ -167,7 +167,10 @@
     obs-studio
     imagemagick
 
+    # harnesses
     claude-code
+    opencode
+
     thunderbird
     libreoffice
     betterdiscordctl
