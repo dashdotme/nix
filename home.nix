@@ -84,6 +84,7 @@
     shellcheck
 
     # runtime/languages
+    deno
     fnm
     nodejs_22
     uv
