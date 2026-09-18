@@ -81,6 +81,10 @@ let
     google-chrome = "${chrome}/bin/google-chrome";
     psql = "${postgresql}/bin/psql";
     zstd = "${zstd}/bin/zstd";
+    # actions/cache calls these names, not `zstd`; without them a cache save
+    # fails with only a warning and every job silently runs uncached
+    zstdmt = "${zstd}/bin/zstdmt";
+    unzstd = "${zstd}/bin/unzstd";
     node = "${nodejs_22}/bin/node";
     npm = "${nodejs_22}/bin/npm";
     npx = "${nodejs_22}/bin/npx";
