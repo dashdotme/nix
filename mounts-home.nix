@@ -1,9 +1,11 @@
 { ... }:
 
 {
-  fileSystems."/mnt/ubuntu" = {
-    device = "/dev/disk/by-uuid/8ce5f10e-7c0a-4554-8201-4e9d6d6ba227";
+  # k3s / ARC runner state (services.arcRunners.storageDir)
+  fileSystems."/mnt/kinbots" = {
+    device = "/dev/disk/by-label/kinbots";
     fsType = "ext4";
+    options = [ "nofail" ];
   };
 
   fileSystems."/mnt/windows" = {

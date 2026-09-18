@@ -31,4 +31,16 @@
 
   networking.hostName = "home_desktop";
 
+  # self-hosted GitHub Actions runners (`runs-on: kinbots`) for flo_tracker
+  services.arcRunners = {
+    enable = true;
+    githubConfigUrl = "https://github.com/dashdotme/flo_tracker";
+    scaleSetName = "kinbots";
+    maxRunners = 2;
+    github.tokenFile = "/var/lib/secrets/kinbots/github-token";
+    # / is nearly full; dedicated partition, see mounts-home.nix
+    storageDir = "/mnt/kinbots";
+    cache.maxSizeGB = 20;
+  };
+
 }

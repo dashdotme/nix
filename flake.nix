@@ -47,6 +47,7 @@
 
       nixosConfigurations = {
         home = mkNixosSystem [
+          ./modules/arc-runners.nix
           ./hardware-home.nix
           ./mounts-home.nix
           ./cfg-home-only.nix
