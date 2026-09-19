@@ -37,7 +37,7 @@
     githubConfigUrl = "https://github.com/dashdotme/flo_tracker";
     scaleSetName = "kinbots";
     maxRunners = 2;
-    github.tokenFile = "/var/lib/secrets/kinbots/github-token";
+    githubTokenFile = "/var/lib/secrets/kinbots/github-token";
     # / is nearly full; dedicated partition, see mounts-home.nix
     storageDir = "/mnt/kinbots";
     cache.maxSizeGB = 20;

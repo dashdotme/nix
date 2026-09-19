@@ -16,7 +16,8 @@
 , liberation_ttf
 , dejavu_fonts
 , noto-fonts-color-emoji
-  # Rename ACTIONS_RESULTS_URL inside Runner.Worker.dll (see arc-runners.nix)
+  # patch Runner.Worker.dll so the in-cluster actions cache can be used; see
+  # patchedWorkerDll
 , patchResultsUrl ? true
 }:
 
@@ -35,6 +36,13 @@ let
   utf16 = s: lib.concatMapStrings (c: "\\x${lib.toLower (lib.toHexString (lib.strings.charToInt c))}\\x00") (lib.stringToCharacters s);
   dllPath = "home/runner/bin/Runner.Worker.dll";
 
+  # The runner overwrites ACTIONS_RESULTS_URL from the job message, so pointing
+  # actions/cache (and setup-node's `cache: pnpm`) at the in-cluster cache server
+  # means renaming the variable the worker writes to (UTF-16 "ACTIONS_RESULTS_URL"
+  # -> "ACTIONS_RESULTS_ORL"), leaving the one set on the container
+  # (arc-runners.nix) intact. See
+  # https://gha-cache-server.falcondev.io/getting-started
+  #
   # Fails the build, rather than silently doing nothing, if a runner bump
   # changes how the variable name is stored.
   patchedWorkerDll = runCommand "Runner.Worker.dll" { nativeBuildInputs = [ jq ]; } ''
